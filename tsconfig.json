@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "module": "none",
+        "target": "es5",
+        "lib": [
+            "es2016",
+            "dom"
+        ],
+        "outDir": "dist",
+        "noImplicitAny": true
+    }
+}

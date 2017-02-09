@@ -1,0 +1,21 @@
+{
+  "name": "oblique",
+  "version": "0.0.0",
+  "description": "single page web application for displaying oblique strategies",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run tsc:w\" \"npm run copy:w\" \"npm run serve\"",
+    "serve": "lite-server -c ./bs-config.json",
+    "tsc:w": "tsc -w",
+    "copy:w": "cpx src/**/*.{css,html,json,js} dist --watch",
+    "clean": "rimraf dist"
+  },
+  "author": "Chuanqi Sun",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^3.2.0",
+    "cpx": "^1.5.0",
+    "lite-server": "^2.2.2",
+    "rimraf": "^2.5.4"
+  }
+}
