@@ -79,7 +79,6 @@ class ViewModel {
         });
 
         this.router.registerStateChangeHandler(id => {
-            console.dir(id);
             const currentStrategy = this.model.setCurrentStrategy(id);
             this.strategy.innerHTML = this.model.currentStrategy.text;
             this.service.cacheAppState(this.model);
