@@ -38,22 +38,16 @@ class Model implements AppState {
     }
 
     public setCurrentStrategy(viewedId: string): Strategy {
-        const unviewedStrategyIds = this.unviewedStrategyIds;
         this.unviewedStrategyIds = this.unviewedStrategyIds.filter(id => id !== viewedId);
         this.currentStrategy = this.strategies.filter(strategy => strategy.id === viewedId)[0];
         return this.currentStrategy;
     }
 
-    public generateNextStrategyId(): string {
+    public getNextStrategyId(): string {
         if (this.unviewedStrategyIds.length === 0)
             return null;
 
         return this.unviewedStrategyIds[Math.floor(Math.random()*this.unviewedStrategyIds.length)];
-    }
-
-    private resetViewingHistory() {
-        this.unviewedStrategyIds = this.viewedStrategyIds;
-        this.viewedStrategyIds = [];
     }
 }
 
@@ -94,7 +88,7 @@ class ViewModel {
     }
 
     private tryDisplayNextStrategy(replace = false) {
-        const nextId = this.model.generateNextStrategyId();
+        const nextId = this.model.getNextStrategyId();
         if (nextId) {
             this.router.navigateToStrategy(nextId, replace);
         } else {
