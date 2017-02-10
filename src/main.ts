@@ -1,15 +1,22 @@
 /* contracts */
 interface StrategyList {
     version: string;
-    strategies: string[];
+    strategies: Strategy[];
+}
+
+interface Strategy {
+    id: string;
+    text: string;
 }
 
 interface AppState {
     version: string;
-    viewedStrategies: string[];
-    unviewedStrategies: string[];
-    currentStrategy: string;
+    strategies: Strategy[];
+    unviewedStrategyIds: string[];
+    currentStrategy: Strategy;
 }
+
+type StateChangeCallback = (state: any) => any;
 
 /* constants */
 const appStateKey = 'appState';
@@ -18,32 +25,35 @@ const strategyListPath = './strategy-list.json';
 /* model */
 class Model implements AppState {
     public version: string;
-    public viewedStrategies: string[];
-    public unviewedStrategies: string[];
-    public currentStrategy: string;
+    public strategies: Strategy[];
+    public viewedStrategyIds: string[];
+    public unviewedStrategyIds: string[];
+    public currentStrategy: Strategy;
 
     public init(state: AppState) {
         this.version = state.version;
-        this.viewedStrategies = state.viewedStrategies;
-        this.unviewedStrategies = state.unviewedStrategies;
+        this.strategies = state.strategies;
+        this.unviewedStrategyIds = state.unviewedStrategyIds;
         this.currentStrategy = state.currentStrategy;
-
     }
 
-    public drawNextStrategy(): void {
-        if (this.unviewedStrategies.length === 0) {
-            this.resetViewingHistory();
-        }
-        const unviewedStrategies = this.unviewedStrategies;
-        const removeAt = Math.floor(Math.random()*unviewedStrategies.length);
-        const chosenStrategy = unviewedStrategies.splice(removeAt, 1)[0];
-        this.currentStrategy = chosenStrategy;
-        this.viewedStrategies.push(chosenStrategy);
+    public setCurrentStrategy(viewedId: string): Strategy {
+        const unviewedStrategyIds = this.unviewedStrategyIds;
+        this.unviewedStrategyIds = this.unviewedStrategyIds.filter(id => id !== viewedId);
+        this.currentStrategy = this.strategies.filter(strategy => strategy.id === viewedId)[0];
+        return this.currentStrategy;
+    }
+
+    public generateNextStrategyId(): string {
+        if (this.unviewedStrategyIds.length === 0)
+            return null;
+
+        return this.unviewedStrategyIds[Math.floor(Math.random()*this.unviewedStrategyIds.length)];
     }
 
     private resetViewingHistory() {
-        this.unviewedStrategies = this.viewedStrategies;
-        this.viewedStrategies = [];
+        this.unviewedStrategyIds = this.viewedStrategyIds;
+        this.viewedStrategyIds = [];
     }
 }
 
@@ -55,7 +65,7 @@ class ViewModel {
     // view -> view-model
     private nextButton: HTMLElement;
 
-    constructor(private model: Model, private service: Service) {
+    constructor(private model: Model, private service: Service, private router: Router) {
         this.initModel().then(() => {
             this.initViewModel();
         });
@@ -63,13 +73,34 @@ class ViewModel {
 
     private initViewModel(): void {
         this.strategy = document.getElementById('o-strategy');
-        this.strategy.innerHTML = this.model.currentStrategy;
         this.nextButton = document.getElementById('o-next');
         this.nextButton.addEventListener("click", () => {
-            this.model.drawNextStrategy();
-            this.service.cacheAppState(this.model);
-            this.strategy.innerHTML = this.model.currentStrategy;
+            this.tryDisplayNextStrategy();
         });
+
+        this.router.registerStateChangeHandler(id => {
+            console.dir(id);
+            const currentStrategy = this.model.setCurrentStrategy(id);
+            this.strategy.innerHTML = this.model.currentStrategy.text;
+            this.service.cacheAppState(this.model);
+        });
+
+        if (this.router.getCurrentState().length > 0) { // init from url
+            this.router.navigateToStrategy(this.router.getCurrentState(), true);
+        } else if (this.model.currentStrategy) { // init from cache
+            this.router.navigateToStrategy(this.model.currentStrategy.id, true);
+        } else { // first time experience
+            this.tryDisplayNextStrategy(true);
+        }
+    }
+
+    private tryDisplayNextStrategy(replace = false) {
+        const nextId = this.model.generateNextStrategyId();
+        if (nextId) {
+            this.router.navigateToStrategy(nextId, replace);
+        } else {
+            console.log('exhausted');
+        }
     }
 
     private async initModel() {
@@ -89,8 +120,8 @@ class Service {
                 if (!cachedAppState || strategyList.version !== cachedAppState.version) {
                     const appState: AppState = {
                         version: strategyList.version,
-                        viewedStrategies: [],
-                        unviewedStrategies: strategyList.strategies,
+                        strategies: strategyList.strategies,
+                        unviewedStrategyIds: strategyList.strategies.map(strategy => strategy.id),
                         currentStrategy: null,
                     }
                     resolve(appState);
@@ -105,6 +136,37 @@ class Service {
     public cacheAppState(appState: AppState): void {
         localStorage.setItem(appStateKey, JSON.stringify(appState));
     } 
+}
+
+/* router */
+class Router {
+    private stateChangeCallbacks: StateChangeCallback[] = [];
+    constructor() {
+        window.onpopstate = ((ev: PopStateEvent) => {
+            this.onStateChange(ev.state);
+        });
+    }
+
+    public registerStateChangeHandler(callback: StateChangeCallback) {
+        this.stateChangeCallbacks.push(callback);
+    }
+
+    private onStateChange(state: any) {
+        this.stateChangeCallbacks.forEach(callback => callback(state));
+    }
+
+    public navigateToStrategy(id: string, replace = false): void {
+        if (replace)
+            history.replaceState(id, 'Oblique #' + id, '/' + id)
+        else
+            history.pushState(id, 'Oblique #' + id, '/' + id);
+        this.onStateChange(id);
+    }
+
+    public getCurrentState(): string {
+        const pathArray = location.pathname.split('/')
+        return pathArray[pathArray.length - 1];
+    }
 }
 
 /* helpers */
@@ -131,4 +193,5 @@ class Util {
 /* init */
 const model = new Model();
 const service = new Service();
-const viewModel = new ViewModel(model, service);
+const router = new Router();
+const viewModel = new ViewModel(model, service, router);
