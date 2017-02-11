@@ -137,7 +137,7 @@ class Router {
     constructor() {
         window.onpopstate = ((ev: PopStateEvent) => {
             this.onStateChange(ev.state);
-        });
+        }); 
     }
 
     public registerStateChangeHandler(callback: StateChangeCallback) {
@@ -150,14 +150,14 @@ class Router {
 
     public navigateToStrategy(id: string, replace = false): void {
         if (replace)
-            history.replaceState(id, 'Oblique #' + id, '/' + id)
+            history.replaceState(id, 'Oblique #' + id, '?s=' + id)
         else
-            history.pushState(id, 'Oblique #' + id, '/' + id);
+            history.pushState(id, 'Oblique #' + id, '?s=' + id);
         this.onStateChange(id);
     }
 
     public getCurrentState(): string {
-        const pathArray = location.pathname.split('/')
+        const pathArray = location.search.split('?s=')
         return pathArray[pathArray.length - 1];
     }
 }
