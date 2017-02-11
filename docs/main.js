@@ -170,13 +170,13 @@ var Router = (function () {
     Router.prototype.navigateToStrategy = function (id, replace) {
         if (replace === void 0) { replace = false; }
         if (replace)
-            history.replaceState(id, 'Oblique #' + id, '/' + id);
+            history.replaceState(id, 'Oblique #' + id, '?s=' + id);
         else
-            history.pushState(id, 'Oblique #' + id, '/' + id);
+            history.pushState(id, 'Oblique #' + id, '?s=' + id);
         this.onStateChange(id);
     };
     Router.prototype.getCurrentState = function () {
-        var pathArray = location.pathname.split('/');
+        var pathArray = location.search.split('?s=');
         return pathArray[pathArray.length - 1];
     };
     return Router;
