@@ -56,6 +56,9 @@ var Model = (function () {
             return null;
         return this.unviewedStrategyIds[Math.floor(Math.random() * this.unviewedStrategyIds.length)];
     };
+    Model.prototype.resetUnviewedStrategies = function () {
+        this.unviewedStrategyIds = this.strategies.map(function (strategy) { return strategy.id; });
+    };
     return Model;
 }());
 /* view-model */
@@ -98,7 +101,9 @@ var ViewModel = (function () {
             this.router.navigateToStrategy(nextId, replace);
         }
         else {
-            console.log('exhausted');
+            this.model.resetUnviewedStrategies();
+            this.service.cacheAppState(this.model);
+            this.tryDisplayNextStrategy(replace);
         }
     };
     ViewModel.prototype.initModel = function () {
