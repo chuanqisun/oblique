@@ -26,7 +26,6 @@ const strategyListPath = './strategy-list.json';
 class Model implements AppState {
     public version: string;
     public strategies: Strategy[];
-    public viewedStrategyIds: string[];
     public unviewedStrategyIds: string[];
     public currentStrategy: Strategy;
 
@@ -48,6 +47,10 @@ class Model implements AppState {
             return null;
 
         return this.unviewedStrategyIds[Math.floor(Math.random()*this.unviewedStrategyIds.length)];
+    }
+
+    public resetUnviewedStrategies(): void {
+        this.unviewedStrategyIds = this.strategies.map(strategy => strategy.id);
     }
 }
 
@@ -92,7 +95,9 @@ class ViewModel {
         if (nextId) {
             this.router.navigateToStrategy(nextId, replace);
         } else {
-            console.log('exhausted');
+            this.model.resetUnviewedStrategies();
+            this.service.cacheAppState(this.model);
+            this.tryDisplayNextStrategy(replace);
         }
     }
 
