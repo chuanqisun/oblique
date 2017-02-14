@@ -1,5 +1,5 @@
 {   
-    "version": "0.0.2",
+    "version": "0.0.3",
     "strategies": [
         { "id": "0", "text": "(Organic) machinery." },
         { "id": "1", "text": "[blank white card]" },
@@ -144,7 +144,7 @@
         { "id": "140", "text": "Use fewer notes." },
         { "id": "141", "text": "Use filters." },
         { "id": "142", "text": "Use something nearby as a model." },
-        { "id": "143", "text": "Use 'unqualified' people." },
+        { "id": "143", "text": "Use ‘unqualified’ people." },
         { "id": "144", "text": "Voice your suspicions." },
         { "id": "145", "text": "Water." },
         { "id": "146", "text": "What are the sections sections of?  Imagine a caterpillar moving." },
