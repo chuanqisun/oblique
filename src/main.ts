@@ -75,6 +75,10 @@ class ViewModel {
             this.tryDisplayNextStrategy();
         });
 
+        this.nextButton.addEventListener("mouseup", () => {
+            this.nextButton.blur();
+        });
+
         this.router.registerStateChangeHandler(id => {
             const currentStrategy = this.model.setCurrentStrategy(id);
             this.strategy.innerHTML = this.model.currentStrategy.text;
