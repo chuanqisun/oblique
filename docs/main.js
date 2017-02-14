@@ -79,6 +79,9 @@ var ViewModel = (function () {
         this.nextButton.addEventListener("click", function () {
             _this.tryDisplayNextStrategy();
         });
+        this.nextButton.addEventListener("mouseup", function () {
+            _this.nextButton.blur();
+        });
         this.router.registerStateChangeHandler(function (id) {
             var currentStrategy = _this.model.setCurrentStrategy(id);
             _this.strategy.innerHTML = _this.model.currentStrategy.text;

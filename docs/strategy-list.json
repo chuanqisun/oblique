@@ -1,5 +1,5 @@
 {   
-    "version": "0.0.1",
+    "version": "0.0.2",
     "strategies": [
         { "id": "0", "text": "(Organic) machinery." },
         { "id": "1", "text": "[blank white card]" },
@@ -33,10 +33,10 @@
         { "id": "29", "text": "Courage!" },
         { "id": "30", "text": "Cut a vital connection." },
         { "id": "31", "text": "Decorate, decorate." },
-        { "id": "32", "text": "Define an area as `safe' and use it as an anchor." },
+        { "id": "32", "text": "Define an area as ‘safe’ and use it as an anchor." },
         { "id": "33", "text": "Destroy - nothing - the most important thing." },
         { "id": "34", "text": "Discard an axiom." },
-        { "id": "35", "text": "Disciplined self- indulgence." },
+        { "id": "35", "text": "Disciplined self-indulgence." },
         { "id": "36", "text": "Disconnect from desire." },
         { "id": "37", "text": "Discover the recipes you are using and abandon them." },
         { "id": "38", "text": "Discover your formulas and abandon them." },

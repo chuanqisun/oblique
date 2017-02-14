@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+} 
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    background-color: #444;
+}
+
+header {
+    line-height: 104px;
+    text-align: center;
+    font-size: 26px;
+    color: #eee;
+    cursor: default;
+    user-select: none;
+}
+
+#o-slash {
+    color: #F5A503;
+    margin: 0 4px;
+    font-weight: 900;
+}
+
+main {
+    display: flex;
+
+    width: 100%;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p#o-strategy {
+    flex-grow: 1;
+
+    border-left: 10px #999 solid;
+    padding: 20px;
+    font-size:24px;
+    min-height: 80px;
+    color: #444;
+    border-radius: 10px 0 0 10px;
+    background-color: #eee;
+}
+
+button#o-next {
+    font-size: 20px;
+    border: none;
+    background-color: #999;
+    color: #eee;
+    padding: 20px;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+button#o-next:hover,
+button#o-next:active {
+    background-color: #F5A503;
+}
+
+button#o-next:focus {
+    outline-style: solid;  
+    outline-color: #E9F1DF;    
+    outline-width: 2px;
+}
+
+@media (max-width: 480px) {
+    p#o-strategy {
+        border-left: 0;
+        border-top: 10px #999 solid;
+        border-radius: 10px 10px 0 0;
+        margin: 0 20px;
+    }
+
+    main {
+        flex-grow: 1;
+        flex-direction: column;
+    }
+
+    button#o-next {
+        margin: 0px 20px;
+        border-radius: 0 0 10px 10px;
+    }
+}
