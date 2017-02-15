@@ -84,11 +84,9 @@ class ViewModel {
         this.facebookShareLink.addEventListener("click", () => {
             FB.ui({
                 method: 'share',
-                href: 'http://oblique.me/' + location.search, // TODO use location.href in prod
+                href: location.href,
                 quote: this.model.currentStrategy.text,
-            }, (response) => {
-                console.dir(response);
-            });
+            }, (response) => {});
         });
         this.twitterLink.addEventListener("click", () => {
             let href = 'https://twitter.com/intent/tweet?';

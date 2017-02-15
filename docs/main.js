@@ -1,3 +1,4 @@
+///<reference path='../node_modules/@types/facebook-js-sdk/index.d.ts'/>
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -76,8 +77,24 @@ var ViewModel = (function () {
         var _this = this;
         this.strategy = document.getElementById('o-strategy');
         this.nextButton = document.getElementById('o-next');
+        this.facebookShareLink = document.getElementById('o-facebook-share');
+        this.twitterLink = document.getElementById('o-twitter-tweet');
         this.nextButton.addEventListener("click", function () {
             _this.tryDisplayNextStrategy();
+        });
+        this.facebookShareLink.addEventListener("click", function () {
+            FB.ui({
+                method: 'share',
+                href: location.href,
+                quote: _this.model.currentStrategy.text,
+            }, function (response) { });
+        });
+        this.twitterLink.addEventListener("click", function () {
+            var href = 'https://twitter.com/intent/tweet?';
+            href = href + 'text=' + encodeURIComponent(_this.model.currentStrategy.text);
+            href = href + '&url=' + encodeURIComponent(location.href);
+            href = href + '&hashtags=ObliqueMe';
+            _this.twitterLink.href = href;
         });
         this.nextButton.addEventListener("mouseup", function () {
             _this.nextButton.blur();
