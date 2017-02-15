@@ -1,3 +1,5 @@
+///<reference path='../node_modules/@types/facebook-js-sdk/index.d.ts'/>
+
 /* contracts */
 interface StrategyList {
     version: string;
@@ -61,6 +63,8 @@ class ViewModel {
     
     // view -> view-model
     private nextButton: HTMLElement;
+    private facebookShareLink: HTMLLinkElement;
+    private twitterLink: HTMLLinkElement;
 
     constructor(private model: Model, private service: Service, private router: Router) {
         this.initModel().then(() => {
@@ -71,8 +75,27 @@ class ViewModel {
     private initViewModel(): void {
         this.strategy = document.getElementById('o-strategy');
         this.nextButton = document.getElementById('o-next');
+        this.facebookShareLink = <HTMLLinkElement>document.getElementById('o-facebook-share');
+        this.twitterLink = <HTMLLinkElement>document.getElementById('o-twitter-tweet');
+
         this.nextButton.addEventListener("click", () => {
             this.tryDisplayNextStrategy();
+        });
+        this.facebookShareLink.addEventListener("click", () => {
+            FB.ui({
+                method: 'share',
+                href: 'http://oblique.me/' + location.search, // TODO use location.href in prod
+                quote: this.model.currentStrategy.text,
+            }, (response) => {
+                console.dir(response);
+            });
+        });
+        this.twitterLink.addEventListener("click", () => {
+            let href = 'https://twitter.com/intent/tweet?';
+            href = href + 'text=' + encodeURIComponent(this.model.currentStrategy.text);
+            href = href + '&url=' + encodeURIComponent(location.href);
+            href = href + '&hashtags=ObliqueMe';
+            this.twitterLink.href = href;
         });
 
         this.nextButton.addEventListener("mouseup", () => {

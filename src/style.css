@@ -1,6 +1,11 @@
+@font-face {
+    font-family: glyphIcons;
+    src: url(icons.woff);
+}
+
 * {
     margin: 0;
-} 
+}
 
 body {
     display: flex;
@@ -79,6 +84,32 @@ button#o-next:focus {
     outline-style: solid;  
     outline-color: #E9F1DF;    
     outline-width: 2px;
+}
+
+.social-actions {
+    margin: 20px 0 30px 0;
+}
+
+.glyph-icon {
+    font-family: glyphIcons;
+}
+
+a.glyph-icon {
+    font-size: 36px;
+    color: #999;
+    text-decoration: none;
+}
+
+a.glyph-icon + a.glyph-icon {
+    margin-left: 16px;
+}
+
+a.glyph-icon:hover {
+    color: #F5A503;
+}
+
+footer small {
+    font-size: 12px;
 }
 
 @media (max-width: 480px) {
