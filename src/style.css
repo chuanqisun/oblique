@@ -28,10 +28,9 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
 
-    width: 80%;
-    padding: 20px;
+    width: 100%;
+    max-width: 480px;
     margin-left: auto;
     margin-right: auto;
     color: #777;
@@ -46,6 +45,12 @@ main {
     margin-right: auto;
 }
 
+header h1 {
+    font-size: 60px;
+    font-weight: normal;
+    font-family: 'Cormorant Garamond', serif;
+}
+
 #o-slash {
     color: #F5A503;
     margin: 0 4px;
@@ -55,6 +60,7 @@ main {
 p#o-strategy {
     flex-grow: 1;
 
+    font-family: 'Crimson Text', serif; 
     border-left: 10px #999 solid;
     padding: 20px;
     font-size:24px;
@@ -87,7 +93,7 @@ button#o-next:focus {
 }
 
 .social-actions {
-    margin: 20px 0 30px 0;
+    margin: 30px 0;
 }
 
 .glyph-icon {
@@ -101,14 +107,21 @@ a.glyph-icon {
 }
 
 a.glyph-icon + a.glyph-icon {
-    margin-left: 16px;
+    margin-left: 20px;
 }
 
 a.glyph-icon:hover {
     color: #F5A503;
 }
 
+a.glyph-icon:focus {
+    outline-style: solid;  
+    outline-color: #E9F1DF;    
+    outline-width: 2px;
+}
+
 footer small {
+    font-family: 'Crimson Text', serif;
     font-size: 12px;
 }
 
@@ -128,5 +141,9 @@ footer small {
     button#o-next {
         margin: 0px 20px;
         border-radius: 0 0 10px 10px;
+    }
+
+    footer small {
+        margin: 0 20px;
     }
 }
