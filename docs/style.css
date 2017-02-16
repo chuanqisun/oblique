@@ -16,12 +16,8 @@ body {
 }
 
 header {
-    line-height: 104px;
+    padding:30px 0;
     text-align: center;
-    font-size: 26px;
-    color: #eee;
-    cursor: default;
-    user-select: none;
 }
 
 footer {
@@ -48,13 +44,14 @@ main {
 header h1 {
     font-size: 60px;
     font-weight: normal;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Righteous', 'Times New Roman', Times, serif;
 }
 
-#o-slash {
-    color: #F5A503;
-    margin: 0 4px;
-    font-weight: 900;
+header img {
+    
+    width: 40%;
+    min-width: 180px;
+    max-width: 280px;
 }
 
 p#o-strategy {
