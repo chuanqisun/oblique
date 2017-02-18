@@ -79,6 +79,8 @@ var ViewModel = (function () {
         this.nextButton = document.getElementById('o-next');
         this.facebookShareLink = document.getElementById('o-facebook-share');
         this.twitterLink = document.getElementById('o-twitter-tweet');
+        this.ogUrl = document.getElementById('o-og-url');
+        this.ogDescription = document.getElementById('o-og-description');
         this.nextButton.addEventListener("click", function () {
             _this.tryDisplayNextStrategy();
         });
@@ -100,8 +102,10 @@ var ViewModel = (function () {
             _this.nextButton.blur();
         });
         this.router.registerStateChangeHandler(function (id) {
-            var currentStrategy = _this.model.setCurrentStrategy(id);
-            _this.strategy.innerHTML = _this.model.currentStrategy.text;
+            var currentStrategyText = _this.model.setCurrentStrategy(id).text;
+            var url = location.href;
+            _this.strategy.innerHTML = currentStrategyText;
+            _this.updateOpenGraph(url, currentStrategyText);
             _this.service.cacheAppState(_this.model);
         });
         if (this.router.getCurrentState().length > 0) {
@@ -139,6 +143,10 @@ var ViewModel = (function () {
                 }
             });
         });
+    };
+    ViewModel.prototype.updateOpenGraph = function (url, description) {
+        this.ogUrl.content = url;
+        this.ogDescription.content = description;
     };
     return ViewModel;
 }());

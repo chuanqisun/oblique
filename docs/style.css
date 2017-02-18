@@ -1,6 +1,6 @@
 @font-face {
     font-family: glyphIcons;
-    src: url(icons.woff);
+    src: url(assets/icons.woff);
 }
 
 * {
@@ -41,23 +41,17 @@ main {
     margin-right: auto;
 }
 
-header h1 {
-    font-size: 60px;
-    font-weight: normal;
-    font-family: 'Righteous', 'Times New Roman', Times, serif;
-}
-
 header img {
     
     width: 40%;
-    min-width: 180px;
-    max-width: 280px;
+    min-width: 200px;
+    max-width: 300px;
 }
 
 p#o-strategy {
     flex-grow: 1;
 
-    font-family: 'Crimson Text', serif; 
+    font-family: 'Crimson Text', 'Times New Roman', Times, serifserif; 
     border-left: 10px #999 solid;
     padding: 20px;
     font-size:24px;
