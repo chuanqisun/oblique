@@ -12,10 +12,10 @@
     "copy": "cpx src/**/*.{css,html,json,js,woff,svg,png,ico} dist",
     "copy:w": "cpx src/**/*.{css,html,json,js,woff,svg,png,ico} dist --watch",
     "clean": "rimraf dist",
-    "deploy": "npm run build:prod && npm run copy:deploy",
+    "deploy": "npm run clean:prod && npm run build:prod && npm run copy:deploy",
     "copy:deploy": "cpx dist/**/* docs/ && cpx CNAME docs/",
-    "start:prod": "npm run build:prod && npm run serve",
-    "build:prod": "npm run clean:prod && concurrently \"npm run tsc\" \"npm run copy\" && npm run minify",
+    "start:prod": "npm run clean && npm run build:prod && npm run serve",
+    "build:prod": "concurrently \"npm run tsc\" \"npm run copy\" && npm run minify",
     "clean:prod": "rimraf dist && rimraf docs"
   },
   "author": "Chuanqi Sun",
