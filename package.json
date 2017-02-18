@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run tsc:w\" \"npm run copy:w\" \"npm run serve\"",
     "serve": "lite-server -c ./bs-config.json",
     "tsc:w": "tsc -w",
-    "copy:w": "cpx src/**/*.{css,html,json,js,woff,svg} dist --watch",
+    "copy:w": "cpx src/**/*.{css,html,json,js,woff,svg,png,ico} dist --watch",
     "clean": "rimraf dist"
   },
   "author": "Chuanqi Sun",
