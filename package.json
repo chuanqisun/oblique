@@ -4,7 +4,7 @@
   "description": "single page web application for displaying oblique strategies",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run tsc:w\" \"npm run copy:w\" \"npm run serve\"",
+    "start": "npm run clean && concurrently \"npm run tsc:w\" \"npm run copy:w\" \"npm run serve\"",
     "serve": "lite-server -c ./bs-config.json",
     "minify": "node scripts/minify.js",
     "tsc": "tsc",
