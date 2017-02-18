@@ -6,9 +6,17 @@
   "scripts": {
     "start": "concurrently \"npm run tsc:w\" \"npm run copy:w\" \"npm run serve\"",
     "serve": "lite-server -c ./bs-config.json",
+    "minify": "node scripts/minify.js",
+    "tsc": "tsc",
     "tsc:w": "tsc -w",
+    "copy": "cpx src/**/*.{css,html,json,js,woff,svg,png,ico} dist",
     "copy:w": "cpx src/**/*.{css,html,json,js,woff,svg,png,ico} dist --watch",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "deploy": "npm run build:prod && npm run copy:deploy",
+    "copy:deploy": "cpx dist/**/* docs/ && cpx CNAME docs/",
+    "start:prod": "npm run build:prod && npm run serve",
+    "build:prod": "npm run clean:prod && concurrently \"npm run tsc\" \"npm run copy\" && npm run minify",
+    "clean:prod": "rimraf dist && rimraf docs"
   },
   "author": "Chuanqi Sun",
   "license": "MIT",
@@ -17,6 +25,7 @@
     "concurrently": "^3.2.0",
     "cpx": "^1.5.0",
     "lite-server": "^2.2.2",
+    "node-minify": "^2.0.3",
     "rimraf": "^2.5.4"
   }
 }
