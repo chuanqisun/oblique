@@ -1,4 +1,4 @@
-# oblique
+# ob/ique
 
 A MVVM single page web app that displays random Oblique Strategies. 
 
