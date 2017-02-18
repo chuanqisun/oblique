@@ -65,8 +65,6 @@ class ViewModel {
     private nextButton: HTMLElement;
     private facebookShareLink: HTMLLinkElement;
     private twitterLink: HTMLLinkElement;
-    private ogUrl: HTMLMetaElement;
-    private ogDescription: HTMLMetaElement;
 
     constructor(private model: Model, private service: Service, private router: Router) {
         this.initModel().then(() => {
