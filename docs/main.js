@@ -92,7 +92,7 @@ var ViewModel = (function () {
         this.twitterLink.addEventListener("click", function () {
             var href = 'https://twitter.com/intent/tweet?';
             href = href + 'text=' + encodeURIComponent(_this.model.currentStrategy.text);
-            href = href + '&url=' + encodeURIComponent(location.href);
+            href = href + '&url=' + encodeURIComponent('http://oblique.me');
             href = href + '&hashtags=ObliqueMe';
             _this.twitterLink.href = href;
         });
