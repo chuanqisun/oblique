@@ -92,7 +92,7 @@ class ViewModel {
         });
         this.twitterLink.addEventListener("click", () => {
             let href = 'https://twitter.com/intent/tweet?';
-            href = href + 'text=' + encodeURIComponent(this.model.currentStrategy.text);
+            href = href + 'text=' + encodeURIComponent(this.model.currentStrategy.text + '--http://oblique.me');
             href = href + '&url=' + encodeURIComponent(location.href);
             href = href + '&hashtags=ObliqueMe';
             this.twitterLink.href = href;
