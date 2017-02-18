@@ -61,6 +61,11 @@ p#o-strategy {
     background-color: #eee;
 }
 
+p#o-strategy i {
+    font-style: italic;
+    display: block;
+}
+
 button#o-next {
     font-size: 20px;
     border: none;
