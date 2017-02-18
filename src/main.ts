@@ -79,8 +79,6 @@ class ViewModel {
         this.nextButton = document.getElementById('o-next');
         this.facebookShareLink = <HTMLLinkElement>document.getElementById('o-facebook-share');
         this.twitterLink = <HTMLLinkElement>document.getElementById('o-twitter-tweet');
-        this.ogUrl = <HTMLMetaElement>document.getElementById('o-og-url');
-        this.ogDescription = <HTMLMetaElement>document.getElementById('o-og-description');
 
         this.nextButton.addEventListener("click", () => {
             this.tryDisplayNextStrategy();
@@ -108,7 +106,6 @@ class ViewModel {
             const currentStrategyText = this.model.setCurrentStrategy(id).text;
             const url = location.href;
             this.strategy.innerHTML = currentStrategyText;
-            this.updateOpenGraph(url, currentStrategyText);
             this.service.cacheAppState(this.model);
         });
 
@@ -135,11 +132,6 @@ class ViewModel {
     private async initModel() {
         const appState = await this.service.getAppState();
         this.model.init(appState);
-    }
-
-    private updateOpenGraph(url: string, description: string): void {
-        this.ogUrl.content = url;
-        this.ogDescription.content = description;
     }
 }
 
